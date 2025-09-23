@@ -8,8 +8,8 @@ const Projects = () => {
       title: "Portfolio Website",
       desc: "Responsive portfolio with modern UI/UX design.",
       tech: ["Frontend: Javascript + React 18 + Vite", "Styling: Modern CSS with animations","Deployment: Vercel ready"],
-      github: "#",
-      demo: "#"
+      github: "https://github.com/EswarChittala/portfolio/tree/main",
+      demo: "https://eswararao13portfolio.netlify.app/"
     },
     {
       title: "Contact-Book",
