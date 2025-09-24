@@ -25,7 +25,7 @@ const Hero = () => {
   // };
   const downloadResume = () => {
   // Replace with your actual Google Drive link
-  window.open('https://drive.google.com/file/d/1n2KQivpfQVFOkM2lDOjz-zZ2A2rcEyqc/view?usp=sharing', '_blank');
+  window.open('https://drive.google.com/file/d/1uzev4qSczuC2ybO1xzD_0auhgihJhXWk/view?usp=drive_link', '_blank');
 };
 
   return (
