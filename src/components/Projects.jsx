@@ -24,6 +24,13 @@ const Projects = () => {
       tech: ["Python", "Django", "MySQL", "ML"],
       github: "https://github.com/EswarChittala/University_Admission_Prediction_System_Database",
       demo: "#"
+    },
+    {
+      title: "User-Management",
+      desc: "📋 User Management Application A modern, responsive web application for managing user data with full CRUD (Create, Read, Update, Delete) operations, built with React.js and Vite.",
+      tech: ["Frontend: React 18 + Vite", "Backend:API Integration The application uses JSONPlaceholder as a mock backend", "Styling: Modern CSS with animations","Deployment: netlify ready"],
+      github: "https://github.com/EswarChittala/enduser_management_system",
+      demo: "https://enduser-management.netlify.app"
     }
   ];
 
