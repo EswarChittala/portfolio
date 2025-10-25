@@ -31,6 +31,13 @@ const Projects = () => {
       tech: ["Frontend: React 18 + Vite", "Backend:API Integration The application uses JSONPlaceholder as a mock backend", "Styling: Modern CSS with animations","Deployment: netlify ready"],
       github: "https://github.com/EswarChittala/enduser_management_system",
       demo: "https://enduser-management.netlify.app"
+    },
+    {
+      title: "Product-Catalog",
+      desc: "📋 Product Catalog Application A modern, responsive web application for managing and filter data based on user intrests, built with React.js and Vite.",
+      tech: ["Frontend: React 18 + Vite", "Backend:API Integration The application uses JSONPlaceholder as a mock backend", "Styling: Modern CSS with animations","Deployment: netlify ready"],
+      github: "https://github.com/EswarChittala/product-catalog.git",
+      demo: "https://product-catalog-orpin.vercel.app/"
     }
   ];
 

@@ -12,7 +12,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const items = ['Home', 'About', 'Skills', 'Projects', 'Experience', 'Contact'];
+  const items = ['Hero', 'About', 'Skills', 'Projects', 'Experience', 'Contact'];
 
   return (
     <motion.nav
