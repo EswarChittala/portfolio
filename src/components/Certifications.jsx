@@ -1,5 +1,6 @@
 import React from 'react';
 import { ExternalLink } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const certs = [
   {
@@ -21,42 +22,98 @@ const certs = [
 ];
 
 const Certifications = () => {
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { type: 'spring', stiffness: 100 },
+    },
+  };
+
   return (
-    <section id="certifications" className="section relative border-b border-white/5">
-      <div className="container-inner">
-        <div className="section-heading animate-fade-up">
+    <section id="certifications" className="section">
+      <div className="section-inner">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="section-header"
+        >
           <h2>Certifications</h2>
           <p>Credentials that validate my technical skills and continuous learning.</p>
-        </div>
+        </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-6 animate-fade-up delay-100">
+        {/* Certifications Grid */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="grid lg:grid-cols-2 gap-6"
+        >
           {certs.map((cert, i) => (
-            <div key={i} className="premium-card flex flex-col group">
+            <motion.div
+              key={i}
+              variants={item}
+              whileHover={{ y: -4 }}
+              className="card-premium flex flex-col"
+            >
+              {/* Header */}
               <div className="flex items-start justify-between gap-4 mb-4">
-                <div>
-                  <h3 className="font-medium text-white text-lg">{cert.name}</h3>
-                  <div className="text-zinc-500 text-sm mt-1">{cert.issuer}</div>
+                <div className="flex-1">
+                  <h3 className="font-bold text-lg md:text-xl text-text mb-1">{cert.name}</h3>
+                  <p className="text-text-secondary text-sm">{cert.issuer}</p>
                 </div>
                 {cert.link && (
-                  <a href={cert.link} target="_blank" rel="noreferrer" className="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors shrink-0">
-                    <ExternalLink size={16} strokeWidth={1.5} className="text-zinc-400 group-hover:text-white transition-colors" />
-                  </a>
+                  <motion.a
+                    href={cert.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="p-2.5 rounded-lg bg-white/5 border border-white/10 text-text-secondary hover:text-accent-emerald hover:border-white/20 transition-colors shrink-0"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <ExternalLink size={18} strokeWidth={1.5} />
+                  </motion.a>
                 )}
               </div>
-              <p className="text-zinc-400 text-sm leading-relaxed mb-6 flex-1">{cert.description}</p>
-              
+
+              {/* Description */}
+              <p className="text-text-secondary text-sm leading-relaxed mb-6 flex-1">{cert.description}</p>
+
+              {/* Skills */}
               <div className="flex flex-wrap gap-2 mb-6">
                 {cert.skills.map((s) => (
-                  <span key={s} className="badge-premium">{s}</span>
+                  <motion.span
+                    key={s}
+                    className="badge-premium"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    {s}
+                  </motion.span>
                 ))}
               </div>
-              
-              <div className="pt-4 border-t border-white/5 text-zinc-500 text-xs font-mono uppercase tracking-wider">
+
+              {/* Period */}
+              <div className="pt-4 border-t border-white/10 text-text-muted text-xs font-mono uppercase tracking-wider">
                 {cert.period}
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
