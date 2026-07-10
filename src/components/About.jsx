@@ -1,76 +1,55 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { Code2, Target, Lightbulb } from 'lucide-react';
+
+const values = [
+  {
+    icon: Code2,
+    title: 'Clean Architecture',
+    desc: 'Writing maintainable, scalable, and modular backend code.'
+  },
+  {
+    icon: Target,
+    title: 'Data-Driven',
+    desc: 'Focusing on metrics, optimization, and efficient algorithms.'
+  },
+  {
+    icon: Lightbulb,
+    title: 'Continuous Growth',
+    desc: 'Constantly learning and adapting to new AI/ML trends.'
+  }
+];
 
 const About = () => {
   return (
-    <section id="about" className="section bg-white dark:bg-gray-900">
-      <div className="container">
-        <motion.h2
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="text-3xl font-bold text-center mb-8 text-gray-800 dark:text-white"
-        >
-          About Me
-        </motion.h2>
+    <section id="about" className="section bg-section">
+      <div className="container max-w-4xl">
+        <div className="section-heading">
+          <h2>About Me</h2>
+          <p>My journey from full stack development to AI/ML engineering.</p>
+        </div>
 
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 mb-6"
-          >
-            <p className="text-gray-600 dark:text-gray-300">
-              Seeking an entry-level Developer position to utilize foundational knowledge in 
-              Java/Python programming, web development, and database management, aiming to 
-              deliver efficient, scalable solutions while enhancing technical abilities through 
-              real-world experience.
+        <div className="grid md:grid-cols-2 gap-10">
+          <div>
+            <p className="text-slate-400 text-sm leading-relaxed mb-4">
+              I am a Python Backend Developer with a strong foundation in designing scalable backend systems, REST APIs, and database-driven applications. My professional experience at Sandspace Technologies involved building reliable software solutions using FastAPI and MySQL.
             </p>
-          </motion.div>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              Through hands-on engineering, I discovered a profound interest in solving complex problems with intelligent systems. I am currently dedicating my time to preparing for GATE Data Science & Artificial Intelligence (DA) 2027 to deepen my expertise in mathematics, statistics, and machine learning at a premier IIT.
+            </p>
+          </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6"
-            >
-              <h3 className="text-xl font-semibold  mb-3 text-blue-600 dark:text-blue-400">Education</h3>
-              <div>
-                <h4 className="font-semibold text-gray-800 dark:text-white">Computer Science & Engineering (B.Tech)</h4>
-                <p className="text-gray-600 dark:text-gray-300">V S M College of Engineering</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">2020 – 2024 | CGPA: 7.69</p>
-                <br></br>
-                <h4 className="font-semibold text-gray-800 dark:text-white">MPC (INTER)</h4>
-                <p className="text-gray-600 dark:text-gray-300">G R C Jr College</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">2018 – 2020 | CGPA: 7.8</p>
-                <br></br>
-                <h4 className="font-semibold text-gray-800 dark:text-white">School (10th)</h4>
-                <p className="text-gray-600 dark:text-gray-300">Z P High School</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">2017 – 2018 | CGPA: 9.7</p>
+          <div className="flex flex-col gap-4">
+            {values.map((v, i) => (
+              <div key={i} className="card flex items-start gap-4">
+                <div className="p-2 bg-slate-800 rounded-md text-slate-300 shrink-0">
+                  <v.icon size={18} />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-slate-200 text-sm">{v.title}</h3>
+                  <p className="text-slate-400 text-xs mt-1">{v.desc}</p>
+                </div>
               </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="bg-green-50 dark:bg-green-900/20 rounded-lg p-6"
-            >
-              <h3 className="text-xl font-semibold mb-3 text-green-600 dark:text-green-400">Internship</h3>
-              <div>
-                <h4 className="font-semibold text-gray-800 dark:text-white">Software Trainee</h4>
-                <p className="text-gray-600 dark:text-gray-300 "><a href='https://www.crio.do/learn/portfolio/eswarchittala13/'><u>Crio.do</u></a></p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">05/2025 – Present</p>
-                <br></br>
-                <h4 className="font-semibold text-gray-800 dark:text-white">Python Full Stack</h4>
-                <p className="text-gray-600 dark:text-gray-300 "><a href='https://share.google/x5Tl7kNmq57RfaXGN'><u>pentagon space</u></a></p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">05/2024 – 01/2025</p>
-                <br></br>
-                <h4 className="font-semibold text-gray-800 dark:text-white">Web Application Developer Intern</h4>
-                <p className="text-gray-600 dark:text-gray-300">MSNM Technologies Pvt Ltd</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">05/2023 – 07/2023</p>
-              </div>
-            </motion.div>
+            ))}
           </div>
         </div>
       </div>

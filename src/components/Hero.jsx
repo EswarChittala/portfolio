@@ -1,92 +1,61 @@
-import React, { useState, useEffect } from 'react';
-import { Download } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Download, ArrowRight } from 'lucide-react';
 
 const Hero = () => {
-  const [text, setText] = useState('');
-  const [index, setIndex] = useState(0);
-  
-  const tech = ['HTML5', 'CSS', 'JavaScript','React', 'MySQL', 'Python'];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setText(tech[index]);
-      setIndex((index + 1) % tech.length);
-    }, 2000);
-
-    return () => clearInterval(timer);
-  }, [index]);
-
-  // const downloadResume = () => {
-  //   // Method 1: Direct download
-  //   const link = document.createElement('a');
-  //   link.href = '/resume.pdf'; // Make sure resume.pdf is in public folder
-  //   link.download = 'Eswararao_Chittala_Resume.pdf';
-  //   link.click();
-  // };
-  const downloadResume = () => {
-  // Replace with your actual Google Drive link
-  window.open('https://drive.google.com/file/d/1uzev4qSczuC2ybO1xzD_0auhgihJhXWk/view?usp=drive_link', '_blank');
-};
-
   return (
-    <section id="hero" className="min-h-screen flex items-center hero-bg">
-      <div className="container flex flex-col md:flex-row items-center justify-between">
-        {/* Text Content */}
-        <div className="md:w-1/2 text-center md:text-left">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 text-blue-600">Eswararao Chittala</h1>
-          <h2 className="text-2xl md:text-2xl mb-6 text-white font-semibold">Aspiring Full-Stack Developer</h2>
-          
-          <div className="text-lg mb-8 h-8">
-            <span className="text-blue-500 font-semibold">I work with: {text}</span>
+    <section id="hero" className="pt-32 pb-24 border-b border-slate-800/50 bg-section">
+      <div className="container max-w-5xl mx-auto flex flex-col-reverse md:flex-row items-center gap-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="flex-1 text-center md:text-left"
+        >
+          <div className="inline-flex items-center gap-2 badge badge-primary mb-6">
+            <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
+            Available for New Opportunities
           </div>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <button 
-              className="btn btn-primary"
-              onClick={() => document.getElementById('projects').scrollIntoView({ behavior: 'smooth' })}
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 text-slate-100">
+            Hi, I'm <span className="text-gradient">Eswar Rao</span>
+          </h1>
+          <h2 className="text-xl md:text-2xl text-slate-400 font-medium mb-6">
+            Python Backend Developer & Aspiring AI/ML Engineer
+          </h2>
+          <p className="text-slate-400 leading-relaxed mb-8 max-w-lg mx-auto md:mx-0">
+            I'm a backend engineer with professional experience building scalable REST APIs and database-driven applications. I am currently preparing for GATE DA 2027 to pursue an M.Tech from a premier IIT, transitioning into applied Artificial Intelligence.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
+            <a href="#projects" className="btn btn-primary w-full sm:w-auto group">
+              View Projects
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </a>
+            <a
+              href="https://drive.google.com/file/d/1uzev4qSczuC2ybO1xzD_0auhgihJhXWk/view?usp=drive_link"
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-outline w-full sm:w-auto"
             >
-              View My Work
-            </button>
-            
-            <button 
-              className="btn bg-green-600 text-white hover:bg-green-700 flex items-center justify-center gap-2"
-              onClick={downloadResume}
-            >
-              <Download size={18} />
+              <Download size={16} />
               Download Resume
-            </button>
+            </a>
           </div>
-        </div>
-
-        {/* Image Section */}
-        <div className="md:w-1/2 mt-8 md:mt-0 flex justify-center">
-          <div className="relative">
-            {/* Profile Image Container */}
-            <div className="w-64 h-64 md:w-80 md:h-80 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
-              <div className="w-60 h-60 md:w-72 md:h-72 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden">
-                <img 
-                  src="/Face.jpg" 
-                  alt="Eswararao Chittala" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-            
-            {/* Floating Tech Icons */}
-            <div className="absolute -top-4 -left-4 w-16 h-16 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg">
-              <span className="text-2xl">🐍</span>
-            </div>
-            <div className="absolute -top-4 -right-4 w-16 h-16 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg">
-              <span className="text-2xl">⚛️</span>
-            </div>
-            <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg">
-              <span className="text-2xl">💻</span>
-            </div>
-            <div className="absolute -bottom-4 -right-4 w-16 h-16 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg">
-              <span className="text-2xl">🚀</span>
-            </div>
-          </div>
-        </div>
+        </motion.div>
+        
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className="w-40 h-40 md:w-64 md:h-64 shrink-0 relative"
+        >
+          <div className="absolute inset-0 bg-indigo-500/20 rounded-full blur-2xl" />
+          <img
+            src="/Face.jpg"
+            alt="Eswar Rao Chittala"
+            className="w-full h-full object-cover rounded-full border-2 border-indigo-500/20 relative z-10"
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
+        </motion.div>
       </div>
     </section>
   );

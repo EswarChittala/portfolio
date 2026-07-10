@@ -1,121 +1,118 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Linkedin, Github, Instagram, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Github, FileText } from 'lucide-react';
 
 const Contact = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
+  const [status, setStatus] = useState('');
 
-  const socialLinks = [
-    { icon: Linkedin, href: "https://linkedin.com/in/eswarchittala", color: "blue" },
-    { icon: Github, href: "https://github.com/EswarChittala", color: "gray" },
-    { icon: Instagram, href: "https://instagram.com/yourusername", color: "pink" },
-  ];
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch('https://formspree.io/f/mrbygejw', {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      });
+      if (res.ok) {
+        setStatus('success');
+        form.reset();
+        setTimeout(() => setStatus(''), 5000);
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
+  };
 
   return (
-    <section id="contact" className="section bg-white dark:bg-gray-900">
-      <div className="container">
-        <motion.h2
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="text-3xl font-bold text-center mb-8 text-gray-800 dark:text-white"
-        >
-          Contact Me
-        </motion.h2>
+    <section id="contact" className="section bg-section-alt">
+      <div className="container max-w-4xl">
+        <div className="section-heading">
+          <h2>Contact</h2>
+          <p>Let's connect — open to opportunities, collaborations, and conversations.</p>
+        </div>
 
-        {alertMessage && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="max-w-4xl mx-auto mb-6 p-4 rounded-lg bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-center"
-          >
-            {alertMessage}
-          </motion.div>
-        )}
-
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {/* Left Side - Contact Info & Social */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            className="space-y-6"
-          >
-            <div>
-              <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">Get in Touch</h3>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <Mail className="text-blue-600" size={20} />
-                  <span className="text-gray-600 dark:text-gray-300">eswarchittala13@gmail.com</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Phone className="text-blue-600" size={20} />
-                  <span className="text-gray-600 dark:text-gray-300">+91-9603841926</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <MapPin className="text-blue-600" size={20} />
-                  <span className="text-gray-600 dark:text-gray-300">India</span>
-                </div>
+        <div className="grid md:grid-cols-2 gap-10">
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 text-slate-300">
+                <Mail size={18} className="text-slate-500" />
+                <a href="mailto:eswarchittala13@gmail.com" className="hover:text-blue-400">eswarchittala13@gmail.com</a>
+              </div>
+              <div className="flex items-center gap-3 text-slate-300">
+                <Phone size={18} className="text-slate-500" />
+                <a href="tel:+919603841926" className="hover:text-blue-400">+91 9603841926</a>
+              </div>
+              <div className="flex items-center gap-3 text-slate-300">
+                <MapPin size={18} className="text-slate-500" />
+                <span>Vijayawada, Andhra Pradesh</span>
               </div>
             </div>
 
-            <div>
-              <h4 className="text-lg font-semibold mb-3 text-gray-800 dark:text-white">Let's Connect</h4>
-              <div className="flex gap-3">
-                {socialLinks.map((social, index) => (
-                  <motion.a
-                    key={index}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-blue-600 hover:text-white transition-colors duration-300"
-                  >
-                    <social.icon size={20} />
-                  </motion.a>
-                ))}
-              </div>
+            <div className="flex gap-4 pt-4">
+              <a href="https://linkedin.com/in/eswarchittala" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-blue-400">
+                <Linkedin size={20} />
+              </a>
+              <a href="https://github.com/EswarChittala" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-blue-400">
+                <Github size={20} />
+              </a>
+              <a href="https://drive.google.com/file/d/1uzev4qSczuC2ybO1xzD_0auhgihJhXWk/view?usp=drive_link" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-blue-400">
+                <FileText size={20} />
+              </a>
             </div>
-          </motion.div>
 
-          {/* Right Side - Contact Form with Formspree */}
-          <motion.form
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            action="https://formspree.io/f/mrbygejw" // Replace with your Formspree ID
-            method="POST"
-            className="space-y-4"
-          >
-            <input
-              type="text"
-              name="name"
-              placeholder="Your Name"
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
-              required
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Your Email"
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
-              required
-            />
-            <textarea
-              name="message"
-              placeholder="Your Message"
-              rows="5"
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 resize-vertical"
-              required
-            />
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              type="submit"
-              className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-blue-700 transition-all duration-300"
-            >
-              <Send size={18} />
-              Send Message
-            </motion.button>
-          </motion.form>
+            <div className="p-4 bg-slate-900 border border-slate-800 rounded-lg">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-2 h-2 rounded-full bg-emerald-500" />
+                <span className="text-emerald-500 text-sm font-medium">Open to Opportunities</span>
+              </div>
+              <p className="text-slate-400 text-xs">
+                Available for freelance projects, full-time roles, and collaborations.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            {status === 'success' && (
+              <div className="mb-4 p-3 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm">
+                Message sent successfully!
+              </div>
+            )}
+            {status === 'error' && (
+              <div className="mb-4 p-3 rounded bg-rose-500/10 border border-rose-500/20 text-rose-400 text-sm">
+                Something went wrong. Please email directly.
+              </div>
+            )}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <input
+                type="text"
+                name="name"
+                placeholder="Name"
+                required
+                className="w-full px-4 py-2.5 rounded bg-slate-900 border border-slate-800 text-slate-200 placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                required
+                className="w-full px-4 py-2.5 rounded bg-slate-900 border border-slate-800 text-slate-200 placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+              />
+              <textarea
+                name="message"
+                placeholder="Message"
+                rows="4"
+                required
+                className="w-full px-4 py-2.5 rounded bg-slate-900 border border-slate-800 text-slate-200 placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 transition-colors resize-none"
+              />
+              <button type="submit" className="btn btn-primary w-full sm:w-auto">
+                Send Message
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </section>
