@@ -1,5 +1,5 @@
 import React from 'react';
-import { Award, Calendar } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const educationData = [
   {
@@ -26,35 +26,72 @@ const educationData = [
 ];
 
 const Education = () => {
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { type: 'spring', stiffness: 100 },
+    },
+  };
+
   return (
-    <section id="education" className="section bg-section">
-      <div className="container max-w-4xl">
-        <div className="section-heading">
+    <section id="education" className="section">
+      <div className="section-inner">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="section-header"
+        >
           <h2>Education</h2>
           <p>Academic milestones that built my technical foundation.</p>
-        </div>
+        </motion.div>
 
-        <div className="space-y-4">
+        {/* Education Timeline */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="space-y-4"
+        >
           {educationData.map((edu, i) => (
-            <div key={i} className="card flex flex-col sm:flex-row justify-between gap-4">
-              <div>
-                <h3 className="font-semibold text-slate-100">{edu.degree}</h3>
-                <p className="text-blue-400 text-sm mt-0.5">{edu.field}</p>
-                <p className="text-slate-400 text-sm mt-1">{edu.institution}</p>
+            <motion.div
+              key={i}
+              variants={item}
+              whileHover={{ y: -4 }}
+              className="card-premium flex flex-col sm:flex-row justify-between gap-6 items-start sm:items-center"
+            >
+              <div className="flex-1">
+                <h3 className="text-lg md:text-xl font-bold text-text mb-2">{edu.degree}</h3>
+                <p className="text-text-secondary text-sm mb-2">{edu.field}</p>
+                <p className="text-text-muted text-xs uppercase tracking-wider">{edu.institution}</p>
               </div>
-              <div className="text-slate-500 text-xs sm:text-right space-y-1 shrink-0">
-                <div className="flex items-center sm:justify-end gap-1.5">
-                  <Calendar size={12} />
-                  {edu.period}
-                </div>
-                <div className="flex items-center sm:justify-end gap-1.5 font-medium text-slate-300">
-                  <Award size={12} className="text-emerald-400" />
+              <div className="text-left sm:text-right shrink-0">
+                <div className="text-text-secondary text-sm font-mono mb-2">{edu.period}</div>
+                <motion.span
+                  className="inline-block px-3 py-1.5 rounded-lg glass-base border border-white/10 text-accent-emerald text-xs font-semibold"
+                  whileHover={{ borderColor: 'rgba(16, 185, 129, 0.3)', backgroundColor: 'rgba(16, 185, 129, 0.05)' }}
+                >
                   {edu.score}
-                </div>
+                </motion.span>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

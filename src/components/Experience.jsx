@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, MapPin, ExternalLink } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const experiences = [
   {
@@ -39,42 +39,100 @@ const experiences = [
 ];
 
 const Experience = () => {
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { type: 'spring', stiffness: 100 },
+    },
+  };
+
   return (
-    <section id="experience" className="section bg-section-alt">
-      <div className="container max-w-4xl">
-        <div className="section-heading">
+    <section id="experience" className="section">
+      <div className="section-inner">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="section-header"
+        >
           <h2>Experience</h2>
           <p>Professional roles and hands-on learning.</p>
-        </div>
+        </motion.div>
 
-        <div className="space-y-6">
+        {/* Experience Cards */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="space-y-6"
+        >
           {experiences.map((exp, i) => (
-            <div key={i} className="card">
-              <div className="flex flex-col sm:flex-row justify-between mb-4 gap-2">
-                <div>
-                  <h3 className="font-semibold text-slate-100">{exp.role}</h3>
-                  <div className="text-blue-400 text-sm mt-1">{exp.company}</div>
-                </div>
-                <div className="text-slate-500 text-xs sm:text-right space-y-1">
-                  <div className="flex items-center sm:justify-end gap-1.5">
-                    <Calendar size={12} /> {exp.period}
+            <motion.div
+              key={i}
+              variants={item}
+              whileHover={{ y: -4 }}
+              className="card-premium group"
+            >
+              {/* Header */}
+              <div className="flex flex-col md:flex-row justify-between mb-8 gap-4">
+                <div className="flex-1">
+                  <h3 className="text-xl md:text-2xl font-bold text-text tracking-tight mb-2">
+                    {exp.role}
+                  </h3>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                    <span className="font-semibold text-accent-emerald">{exp.company}</span>
+                    <span className="hidden sm:inline text-text-muted">•</span>
+                    <span className="text-text-muted">{exp.location}</span>
                   </div>
-                  <div className="flex items-center sm:justify-end gap-1.5">
-                    <MapPin size={12} /> {exp.location}
-                  </div>
                 </div>
+                <motion.div
+                  className="text-sm md:text-base font-mono text-text-secondary whitespace-nowrap md:text-right"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  {exp.period}
+                </motion.div>
               </div>
-              <ul className="space-y-2">
+
+              {/* Divider */}
+              <div className="divider-premium mb-6"></div>
+
+              {/* Bullets */}
+              <ul className="space-y-4">
                 {exp.bullets.map((b, j) => (
-                  <li key={j} className="flex items-start gap-2 text-slate-400 text-sm">
-                    <span className="text-slate-600 mt-1 shrink-0">•</span>
-                    {b}
-                  </li>
+                  <motion.li
+                    key={j}
+                    className="flex items-start gap-4 text-base leading-relaxed"
+                    style={{ color: '#a1a1a6' }}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05 * (j + 1) }}
+                    viewport={{ once: true }}
+                  >
+                    <span className="text-accent-emerald font-bold mt-1 shrink-0">›</span>
+                    <span>{b}</span>
+                  </motion.li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

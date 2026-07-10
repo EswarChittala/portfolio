@@ -17,23 +17,23 @@ const focusAreas = [
 
 const CurrentLearning = () => {
   return (
-    <section id="learning" className="section bg-section">
-      <div className="container max-w-4xl">
-        <div className="section-heading">
+    <section id="learning" className="section bg-[#09090b] border-b border-white/5">
+      <div className="container-inner">
+        <div className="section-heading animate-fade-up">
           <h2>Current Learning</h2>
           <p>Topics I'm actively mastering on the path to GATE DA 2027 and an AI/ML career.</p>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-x-12 gap-y-6">
+        <div className="grid sm:grid-cols-2 gap-x-16 gap-y-8 animate-fade-up delay-100">
           {focusAreas.map((item, i) => (
-            <div key={i} className="flex flex-col gap-2">
+            <div key={i} className="flex flex-col gap-3 group">
               <div className="flex justify-between items-center text-sm">
-                <span className="text-slate-300 font-medium">{item.label}</span>
-                <span className="text-blue-400 font-semibold">{item.progress}%</span>
+                <span className="text-zinc-300 group-hover:text-white transition-colors">{item.label}</span>
+                <span className="text-emerald-500 font-mono text-xs">{item.progress}%</span>
               </div>
-              <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+              <div className="w-full bg-white/5 rounded-full h-1 overflow-hidden relative">
                 <div 
-                  className="bg-blue-500 h-full rounded-full"
+                  className="absolute top-0 left-0 h-full bg-emerald-500/80 rounded-full transition-all duration-1000 ease-out"
                   style={{ width: `${item.progress}%` }}
                 />
               </div>

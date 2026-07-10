@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, Calendar, Building2 } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 
 const certs = [
   {
@@ -22,38 +22,36 @@ const certs = [
 
 const Certifications = () => {
   return (
-    <section id="certifications" className="section bg-section-alt">
-      <div className="container max-w-4xl">
-        <div className="section-heading">
+    <section id="certifications" className="section relative border-b border-white/5">
+      <div className="container-inner">
+        <div className="section-heading animate-fade-up">
           <h2>Certifications</h2>
           <p>Credentials that validate my technical skills and continuous learning.</p>
         </div>
 
-        <div className="space-y-4">
+        <div className="grid lg:grid-cols-2 gap-6 animate-fade-up delay-100">
           {certs.map((cert, i) => (
-            <div key={i} className="card flex flex-col md:flex-row gap-6">
-              <div className="flex-1">
-                <div className="flex items-start justify-between gap-4 mb-2">
-                  <h3 className="font-semibold text-slate-100 text-base">{cert.name}</h3>
-                  {cert.link && (
-                    <a href={cert.link} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-blue-400 shrink-0">
-                      <ExternalLink size={16} />
-                    </a>
-                  )}
+            <div key={i} className="premium-card flex flex-col group">
+              <div className="flex items-start justify-between gap-4 mb-4">
+                <div>
+                  <h3 className="font-medium text-white text-lg">{cert.name}</h3>
+                  <div className="text-zinc-500 text-sm mt-1">{cert.issuer}</div>
                 </div>
-                <div className="flex items-center gap-1.5 text-blue-400 text-sm font-medium mb-3">
-                  <Building2 size={14} />
-                  {cert.issuer}
-                </div>
-                <p className="text-slate-400 text-sm leading-relaxed mb-4">{cert.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {cert.skills.map((s) => (
-                    <span key={s} className="skill-tag text-xs">{s}</span>
-                  ))}
-                </div>
+                {cert.link && (
+                  <a href={cert.link} target="_blank" rel="noreferrer" className="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors shrink-0">
+                    <ExternalLink size={16} strokeWidth={1.5} className="text-zinc-400 group-hover:text-white transition-colors" />
+                  </a>
+                )}
               </div>
-              <div className="md:w-48 shrink-0 text-slate-500 text-xs flex items-center md:items-start md:justify-end gap-1.5 pt-1 border-t md:border-t-0 border-slate-800">
-                <Calendar size={12} />
+              <p className="text-zinc-400 text-sm leading-relaxed mb-6 flex-1">{cert.description}</p>
+              
+              <div className="flex flex-wrap gap-2 mb-6">
+                {cert.skills.map((s) => (
+                  <span key={s} className="badge-premium">{s}</span>
+                ))}
+              </div>
+              
+              <div className="pt-4 border-t border-white/5 text-zinc-500 text-xs font-mono uppercase tracking-wider">
                 {cert.period}
               </div>
             </div>

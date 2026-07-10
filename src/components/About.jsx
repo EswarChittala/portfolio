@@ -1,5 +1,6 @@
 import React from 'react';
 import { Code2, Target, Lightbulb } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const values = [
   {
@@ -20,38 +21,84 @@ const values = [
 ];
 
 const About = () => {
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { type: 'spring', stiffness: 100 },
+    },
+  };
+
   return (
-    <section id="about" className="section bg-section">
-      <div className="container max-w-4xl">
-        <div className="section-heading">
-          <h2>About Me</h2>
+    <section id="about" className="section relative">
+      <div className="section-inner">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="section-header"
+        >
+          <h2>About</h2>
           <p>My journey from full stack development to AI/ML engineering.</p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-10">
-          <div>
-            <p className="text-slate-400 text-sm leading-relaxed mb-4">
-              I am a Python Backend Developer with a strong foundation in designing scalable backend systems, REST APIs, and database-driven applications. My professional experience at Sandspace Technologies involved building reliable software solutions using FastAPI and MySQL.
-            </p>
-            <p className="text-slate-400 text-sm leading-relaxed">
-              Through hands-on engineering, I discovered a profound interest in solving complex problems with intelligent systems. I am currently dedicating my time to preparing for GATE Data Science & Artificial Intelligence (DA) 2027 to deepen my expertise in mathematics, statistics, and machine learning at a premier IIT.
-            </p>
-          </div>
+        {/* Content Grid */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="grid md:grid-cols-12 gap-8 lg:gap-12"
+        >
+          {/* Main Text */}
+          <motion.div variants={item} className="md:col-span-7">
+            <div className="card-premium h-full flex flex-col justify-center space-y-6">
+              <p className="text-lg leading-relaxed" style={{ color: '#a1a1a6' }}>
+                I am a Python Backend Developer with a strong foundation in designing scalable backend systems, REST APIs, and database-driven applications. My professional experience at Sandspace Technologies involved building reliable software solutions using FastAPI and MySQL.
+              </p>
+              <p className="text-lg leading-relaxed" style={{ color: '#a1a1a6' }}>
+                Through hands-on engineering, I discovered a profound interest in solving complex problems with intelligent systems. I am currently dedicating my time to preparing for GATE Data Science & Artificial Intelligence (DA) 2027 to deepen my expertise in mathematics, statistics, and machine learning at a premier IIT.
+              </p>
+            </div>
+          </motion.div>
 
-          <div className="flex flex-col gap-4">
+          {/* Values Grid */}
+          <div className="md:col-span-5 flex flex-col gap-4">
             {values.map((v, i) => (
-              <div key={i} className="card flex items-start gap-4">
-                <div className="p-2 bg-slate-800 rounded-md text-slate-300 shrink-0">
-                  <v.icon size={18} />
+              <motion.div
+                key={i}
+                variants={item}
+                whileHover={{ y: -4 }}
+                className="card-premium p-6 flex items-start gap-4 group cursor-pointer"
+              >
+                <motion.div
+                  className="p-3 rounded-lg bg-white/5 border border-white/10 shrink-0"
+                  whileHover={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', borderColor: 'rgba(16, 185, 129, 0.3)' }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <v.icon size={20} strokeWidth={1.5} style={{ color: '#10b981' }} />
+                </motion.div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-text text-sm mb-2">{v.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: '#767680' }}>{v.desc}</p>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-slate-200 text-sm">{v.title}</h3>
-                  <p className="text-slate-400 text-xs mt-1">{v.desc}</p>
-                </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
